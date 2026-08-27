@@ -1,0 +1,236 @@
+<title>Подключение ELM327</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#f5f7fa; --card:#ffffff; --ink:#17222e; --mut:#5b6b7c; --line:#dde4ec;
+  --acc:#2b9e46; --acc-ink:#ffffff; --acc-soft:#e7f5eb;
+  --ok:#177a45; --ok-bg:#e6f5ec; --bad:#d93a2b; --bad-bg:#fdedeb; --warn:#9a6400; --warn-bg:#fdf3df;
+  --chip:#eef2f7;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f151d; --card:#161e29; --ink:#e7edf5; --mut:#93a2b4; --line:#28323f;
+    --acc:#4fc46a; --acc-ink:#0b1a0f; --acc-soft:#16301d;
+    --ok:#4ecb8a; --ok-bg:#12281c; --bad:#ff8a76; --bad-bg:#301b16; --warn:#f0b350; --warn-bg:#2d2412;
+    --chip:#1d2733;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f151d; --card:#161e29; --ink:#e7edf5; --mut:#93a2b4; --line:#28323f;
+  --acc:#4fc46a; --acc-ink:#0b1a0f; --acc-soft:#16301d;
+  --ok:#4ecb8a; --ok-bg:#12281c; --bad:#ff8a76; --bad-bg:#301b16; --warn:#f0b350; --warn-bg:#2d2412;
+  --chip:#1d2733;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Golos Text',system-ui,-apple-system,sans-serif;line-height:1.55;font-size:16.5px}
+.wrap{max-width:720px;margin:0 auto;padding:20px 18px 60px}
+header.hero{padding:44px 0 8px;display:flex;flex-direction:column;align-items:center;text-align:center}
+img.logo{width:96px;height:96px;border-radius:24px;background:#ffffff;padding:8px;border:1px solid var(--line);box-shadow:0 6px 24px rgba(23,34,46,.08)}
+
+.brand{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase;margin-top:16px}
+h1{font-family:'Onest',sans-serif;font-weight:800;font-size:clamp(30px,6vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:18px 0 12px;text-wrap:balance}
+.sub{color:var(--mut);font-size:17px;max-width:32em;margin:0 auto}
+.timebox{display:inline-flex;align-items:center;gap:8px;background:var(--acc-soft);color:var(--acc);border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px;margin-top:14px}
+nav.toc{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:24px 0 6px;max-width:560px}
+nav.toc a{background:var(--chip);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--line)}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--acc);color:var(--acc-ink);outline:none}
+section{margin-top:46px}
+.sec-head{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
+.sec-num{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);flex:0 0 auto}
+h2{font-family:'Onest',sans-serif;font-weight:700;font-size:clamp(20px,4.5vw,26px);letter-spacing:-0.01em;line-height:1.25;text-wrap:balance}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px;box-shadow:0 2px 10px rgba(23,34,46,.04)}
+.step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--acc);color:var(--acc-ink);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.step b{display:block;margin-bottom:2px}
+.step p{color:var(--mut);font-size:15.5px}
+.step p b, .note b{color:var(--ink)}
+kbd{font-family:'JetBrains Mono',monospace;background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:14px;font-weight:500}
+.note{border-radius:12px;padding:13px 16px;margin-top:14px;font-size:15.5px}
+.note.ok{background:var(--ok-bg);color:var(--ink)} .note.ok::before{content:"✓ ";color:var(--ok);font-weight:700}
+.note.bad{background:var(--bad-bg)} .note.bad::before{content:"✕ ";color:var(--bad);font-weight:700}
+.note.warn{background:var(--warn-bg)} .note.warn::before{content:"! ";color:var(--warn);font-weight:800}
+.video{display:flex;align-items:center;text-align:left;gap:14px;width:100%;max-width:460px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;text-decoration:none;color:var(--ink);margin-top:16px}
+.video:hover{border-color:var(--acc)}
+.video .play{flex:0 0 46px;height:46px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center}
+.video .play::before{content:"";border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent var(--acc-ink);margin-left:3px}
+.video small{color:var(--mut);display:block;font-size:13.5px}
+ul.checklist{list-style:none}
+ul.checklist li{padding:10px 0 10px 30px;position:relative;border-bottom:1px solid var(--line);font-size:15.5px}
+ul.checklist li:last-child{border-bottom:none}
+ul.checklist li::before{content:"→";position:absolute;left:2px;color:var(--acc);font-weight:700}
+ul.checklist li b{color:var(--ink)}
+ul.checklist li{color:var(--mut)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+.tablewrap{overflow-x:auto;margin-top:4px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut)}
+td.yes{color:var(--ok);font-weight:600} td.no{color:var(--bad);font-weight:600} td.half{color:var(--warn);font-weight:600}
+.help{background:var(--acc);color:var(--acc-ink);border-radius:20px;padding:28px 26px;margin-top:52px}
+.help h2{color:inherit;margin-bottom:10px}
+.help ol{margin:10px 0 14px 20px}
+.help li{margin:4px 0}
+.help p{opacity:.93}
+footer{margin-top:34px;color:var(--mut);font-size:13.5px;text-align:center;line-height:1.7}
+footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+@media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth} }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <img class="logo" src="data:image/png;base64,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" alt="SuperMarioStore" width="96" height="96">
+  <div class="brand">Официальный магазин SuperMarioStore на Ozon</div>
+  <h1>Подключение автосканера ELM327</h1>
+  <p class="sub">Bluetooth OBD2 · версия v1.5 · чип PIC18F25K80. Пошагово для Android, iPhone и ВАЗ — от распаковки до первой диагностики.</p>
+  <div class="timebox">⏱ Займёт около 5 минут — начните с шага 0</div>
+  <nav class="toc">
+    <a href="#s0">0 · Проверка</a>
+    <a href="#android">Android</a>
+    <a href="#iphone">iPhone</a>
+    <a href="#vaz">ВАЗ и авто до 2008</a>
+    <a href="#apps">Марочные приложения</a>
+    <a href="#fail">Не подключается</a>
+    <a href="#compat">Совместимость</a>
+    <a href="#help">Помощь</a>
+  </nav>
+  <a class="video" href="https://vkvideo.ru/video-32587581_456240029" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span><b>Видео-инструкция</b><small>Как подключить и считать ошибки · VK Видео, 3 мин</small></span>
+  </a>
+</header>
+
+<section id="s0">
+  <div class="sec-head"><span class="sec-num">Шаг 0</span><h2>Проверьте адаптер за 30 секунд</h2></div>
+  <div class="card">
+    <div class="step"><span class="n">1</span><div><b>Найдите разъём OBD2</b><p>Под рулевой колонкой, иногда за заглушкой или в блоке предохранителей. Трапециевидный, 16 контактов.</p></div></div>
+    <div class="step"><span class="n">2</span><div><b>Вставьте адаптер до упора</b><p>Слабый контакт — частая причина обрывов связи.</p></div></div>
+    <div class="step"><span class="n">3</span><div><b>Включите зажигание</b><p>Ключ в положение ON — приборная панель загорелась. Заводить двигатель не обязательно.</p></div></div>
+    <div class="step"><span class="n">4</span><div><b>Посмотрите на адаптер</b><p>Должен загореться или замигать <b>красный светодиод</b>.</p></div></div>
+  </div>
+  <div class="note ok"><b>Светодиод горит</b> — адаптер исправен. Дальше: <a href="#android">Android</a>, <a href="#iphone">iPhone</a> или <a href="#vaz">ВАЗ / авто до 2008</a>.</div>
+  <div class="note bad"><b>Не горит</b> — проверьте предохранитель прикуривателя (разъём OBD2 часто питается от него) или попробуйте на другом авто. Не горит нигде — напишите нам в чат на Ozon, заменим устройство.</div>
+</section>
+
+<section id="android">
+  <div class="sec-head"><span class="sec-num">Путь А</span><h2>Подключение с Android</h2></div>
+  <div class="card">
+    <div class="step"><span class="n">1</span><div><b>Установите приложение</b><p>Рекомендуем бесплатный <b>Car Scanner ELM OBD2</b> в Google Play. Подойдут и Torque, InCarDoc, OBD Auto Doctor.</p></div></div>
+    <div class="step"><span class="n">2</span><div><b>Адаптер в разъём, зажигание ВКЛ</b><p>Красный светодиод горит — см. шаг 0.</p></div></div>
+    <div class="step"><span class="n">3</span><div><b>Создайте пару по Bluetooth</b><p>Настройки → Bluetooth → устройство <b>OBD2 / OBDII</b> → «Подключить». Пароль <kbd>1234</kbd>, реже <kbd>0000</kbd>.</p></div></div>
+    <div class="step"><span class="n">4</span><div><b>Настройте приложение</b><p>Car Scanner: Настройки → Адаптер → тип подключения <b>«Bluetooth»</b> → устройство OBD2. В профиле укажите марку и модель авто.</p></div></div>
+    <div class="step"><span class="n">5</span><div><b>Подключитесь</b><p>Кнопка «Подключить» на главном экране. Первое соединение — до 20 секунд: адаптер перебирает протоколы.</p></div></div>
+  </div>
+  <div class="note warn"><b>Не вышло с первого раза?</b> Удалите пару в настройках Bluetooth, перевставьте адаптер и повторите шаги 3–5. Подключали раньше другой сканер — удалите его из приложения.</div>
+</section>
+
+<section id="iphone">
+  <div class="sec-head"><span class="sec-num">Путь Б</span><h2>Подключение с iPhone — по-другому</h2></div>
+  <div class="note warn" style="margin-top:0"><b>Главное:</b> пару в настройках Bluetooth создавать <b>не нужно</b> — она мешает. iPhone работает с адаптером по каналу BLE: такие устройства подключаются только изнутри приложения и не видны в списке настроек телефона. Это нормально.</div>
+  <div class="card" style="margin-top:14px">
+    <div class="step"><span class="n">1</span><div><b>Удалите пару, если создавали</b><p>Настройки → Bluetooth → устройство OBD2 → «Забыть это устройство». Сам Bluetooth оставьте включённым.</p></div></div>
+    <div class="step"><span class="n">2</span><div><b>Установите приложение</b><p>Рекомендуем <b>Car Scanner ELM OBD2</b> в App Store. Подойдут и OBD Fusion, InCarDoc, InfoCar.</p></div></div>
+    <div class="step"><span class="n">3</span><div><b>Адаптер в разъём, зажигание ВКЛ</b><p>У гибридов — режим Ready. Красный светодиод горит.</p></div></div>
+    <div class="step"><span class="n">4</span><div><b>Подключитесь по BLE в приложении</b><p>Car Scanner: Настройки → Адаптер → тип подключения <b>«Bluetooth LE (4.0)»</b> → «Выбрать устройство» → нажмите на <b>OBD2 / OBDII</b>. Не нашёлся за 5–10 секунд — кнопка «Обновить».</p></div></div>
+    <div class="step"><span class="n">5</span><div><b>Дождитесь соединения</b><p>Первое подключение — 10–20 секунд. В профиле укажите марку авто.</p></div></div>
+  </div>
+  <div class="note ok">Адаптер в списке всегда называется <b>OBD2 / OBDII</b> — никогда маркой вашего автомобиля. Не выбирайте безымянные устройства. Ничего не помогло — перезагрузите iPhone и повторите с шага 1.</div>
+</section>
+
+<section id="vaz">
+  <div class="sec-head"><span class="sec-num">Путь В</span><h2>ВАЗ и автомобили до ~2008 года</h2></div>
+  <p style="color:var(--mut);margin-bottom:14px">ВАЗ с ЭБУ «Январь», Газель, УАЗ и многие иномарки до 2008 года общаются по протоколу K-line. Обычные OBD2-приложения его не видят — <b style="color:var(--ink)">это особенность автомобиля, а не брак адаптера</b>.</p>
+  <div class="card">
+    <div class="step"><span class="n">1</span><div><b>Установите OpenDiag Mobile</b><p>Бесплатно в Google Play (Android). Приложение создано специально для российских авто.</p></div></div>
+    <div class="step"><span class="n">2</span><div><b>Пара по Bluetooth</b><p>Зажигание ВКЛ → Настройки → Bluetooth → OBD2 → пароль <kbd>1234</kbd>.</p></div></div>
+    <div class="step"><span class="n">3</span><div><b>Выберите адаптер и свой ЭБУ</b><p>В OpenDiag: адаптер «ELM327 Bluetooth» → блок управления: Январь 5.1 / 7.2, Bosch M7.9.7 / M17.9.7, Ителма. Маркировка есть на корпусе ЭБУ, либо подберите по модели и году.</p></div></div>
+  </div>
+  <div class="note warn"><b>Иномарки до 2008:</b> в Car Scanner выберите точный профиль марки; если связи нет — Настройки → Адаптер → протокол <b>ISO 9141-2</b> или <b>KWP2000</b> вручную вместо «Авто». K-line поддерживает <b>двухплатная</b> версия сканера — если у вас старое авто, напишите нам, подскажем по вашей версии.</div>
+</section>
+
+
+<section id="apps">
+  <div class="sec-head"><span class="sec-num">По маркам</span><h2>Марочные приложения: больше, чем универсальные</h2></div>
+  <p style="color:var(--mut);margin-bottom:14px">Универсальные приложения видят только двигатель. Для многих марок есть специальные приложения, которые через этот же адаптер читают ABS, подушки, коробку и тяговую батарею.</p>
+  <div class="card">
+    <div class="tablewrap">
+      <table>
+        <tr><th>Автомобиль</th><th>Приложение</th><th>Что даёт</th></tr>
+        <tr><td><b>Ford, Mazda</b></td><td>FORScan Lite</td><td>Почти все блоки: ABS, подушки, TPMS, сервисные процедуры</td></tr>
+        <tr><td><b>ВАЗ, Lada, ГАЗель, УАЗ</b></td><td>OpenDiag Mobile</td><td>ЭБУ «Январь», Bosch, Ителма — включая старые K-line</td></tr>
+        <tr><td><b>Toyota / Lexus гибриды</b></td><td>Dr. Prius, Hybrid Assistant</td><td>Состояние тяговой батареи по ячейкам, тест ВВБ</td></tr>
+        <tr><td><b>Nissan Leaf</b></td><td>LeafSpy Lite / Pro</td><td>Здоровье батареи (SOH), ячейки, зарядка</td></tr>
+        <tr><td><b>Nissan и Chery с вариатором Jatco</b></td><td>CVTz50</td><td>Температура и давление вариатора, счётчик износа, адаптации</td></tr>
+        <tr><td><b>Renault ZOE и электроверсии</b></td><td>CanZE</td><td>Батарея, зарядка, температуры</td></tr>
+        <tr><td><b>Kia, Hyundai, Honda, Mitsubishi, Nissan и др.</b></td><td>MotorData OBD (на русском)</td><td>Марочные плагины: ошибки ABS, SRS, АКПП с расшифровкой</td></tr>
+        <tr><td><b>Chevrolet Volt / Opel Ampera</b></td><td>Torque (Android) + PID-профиль Volt</td><td>Данные гибридной батареи</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="note warn"><b>Честно про исключения:</b> BimmerLink / BimmerCode (BMW), Carly и OBDeleven (VAG) с обычными ELM327 не работают — им нужны фирменные адаптеры из их списка. iOS-приложение Voltage для Chevrolet Volt тоже требует BLE-адаптеры из своего перечня. С нашим адаптером на этих авто доступна базовая диагностика двигателя через Car Scanner.</div>
+  <div class="note ok">Не нашли свою марку — напишите нам в чат, подскажем, какое приложение раскроет ваш автомобиль максимально.</div>
+</section>
+
+<section id="fail">
+  <div class="sec-head"><span class="sec-num">SOS</span><h2>Не подключается? Чек-лист</h2></div>
+  <div class="card">
+    <ul class="checklist">
+      <li><b>Зажигание выключено.</b> Включите зажигание или заведите двигатель.</li>
+      <li><b>Плохой контакт.</b> Вставьте адаптер плотнее, до упора.</li>
+      <li><b>iPhone: создана пара.</b> «Забыть устройство» и подключаться по BLE изнутри приложения.</li>
+      <li><b>Android: нет пары или неверный код.</b> Пароль <kbd>1234</kbd> или <kbd>0000</kbd>.</li>
+      <li><b>Раньше подключался другой сканер.</b> Удалите старый из приложения.</li>
+      <li><b>Авто до ~2008 или ВАЗ.</b> Нужен K-line и OpenDiag — путь В.</li>
+      <li><b>Приложение «не видит» адаптер.</b> Попробуйте другое: Car Scanner, Torque, InCarDoc.</li>
+    </ul>
+  </div>
+  <div class="sec-head" style="margin-top:26px"><span class="sec-num">&nbsp;</span><h2>Связь есть, но рвётся или «No data»</h2></div>
+  <div class="card">
+    <ul class="checklist">
+      <li>Заведите двигатель — не только зажигание.</li>
+      <li>Выберите точный профиль авто вместо «Универсальный».</li>
+      <li>Отключите Wi-Fi на телефоне и уберите его с беспроводной зарядки — они мешают Bluetooth.</li>
+      <li>Car Scanner: Настройки → Адаптер → снизьте скорость опроса.</li>
+      <li>Проверьте посадку адаптера — на кочках он может отходить.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="compat">
+  <div class="sec-head"><span class="sec-num">FAQ</span><h2>Совместимость и возможности</h2></div>
+  <div class="card">
+    <div class="tablewrap">
+      <table>
+        <tr><th>Автомобиль</th><th>Поддержка</th></tr>
+        <tr><td>Бензиновые иномарки с ~2001 г.</td><td class="yes">Да · OBD2</td></tr>
+        <tr><td>Дизельные иномарки с ~2004 г.</td><td class="yes">Да · OBD2</td></tr>
+        <tr><td>Российские авто с 2006–2008 г.</td><td class="yes">Да · OBD2</td></tr>
+        <tr><td>ВАЗ и иномарки до ~2008 г.</td><td class="yes">Да · K-line, двухплатная версия</td></tr>
+        <tr><td>Гибриды (Prius, Volt и др.)</td><td class="yes">Да · через профиль в Car Scanner</td></tr>
+        <tr><td>Электромобили</td><td class="half">Частично · зависит от модели</td></tr>
+        <tr><td>Грузовики с сетью 24В</td><td class="no">Нет</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="note ok"><b>Сканер умеет:</b> читать и сбрасывать ошибки Check Engine, показывать датчики в реальном времени (обороты, температуры, давление, лямбда), VIN, стоп-кадр ошибки.</div>
+  <div class="note bad"><b>Не умеет (честно):</b> прошивать блоки, корректировать одометр, читать ABS / подушки / АКПП / блок комфорта на большинстве авто — эти блоки закрыты производителями, нужно дилерское оборудование.</div>
+</section>
+
+<section id="help" class="help">
+  <h2>Не получилось? Мы поможем</h2>
+  <p>Напишите нам в чат на Ozon — в карточке товара кнопка «Задать вопрос» — и укажите:</p>
+  <ol>
+    <li>марку, модель и год автомобиля;</li>
+    <li>телефон — Android или iPhone;</li>
+    <li>каким приложением подключались;</li>
+    <li>горит ли красный светодиод на адаптере.</li>
+  </ol>
+  <p>С этими четырьмя пунктами мы отвечаем точной инструкцией под ваш случай. Если проверка из шага 0 показала неисправность адаптера — заменим устройство.</p>
+</section>
+
+<footer>
+  SuperMarioStore — автотовары и инструмент<br>
+  <span class="sku">Автосканер ELM327: одноплатный SKU 3491392080 · двухплатный SKU 2926046377</span>
+</footer>
+
+</div>
