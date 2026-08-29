@@ -49,6 +49,8 @@ h2{font-family:'Onest',sans-serif;font-weight:700;font-size:clamp(20px,4.5vw,26p
 .step b{display:block;margin-bottom:2px}
 .step p{color:var(--mut);font-size:15.5px}
 .step p b, .note b{color:var(--ink)}
+a.app{color:var(--acc);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+a.app:hover{opacity:.8}
 kbd{font-family:'JetBrains Mono',monospace;background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:14px;font-weight:500}
 .note{border-radius:12px;padding:13px 16px;margin-top:14px;font-size:15.5px}
 .note.ok{background:var(--ok-bg);color:var(--ink)} .note.ok::before{content:"✓ ";color:var(--ok);font-weight:700}
@@ -119,7 +121,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
 <section id="android">
   <div class="sec-head"><span class="sec-num">Путь А</span><h2>Подключение с Android</h2></div>
   <div class="card">
-    <div class="step"><span class="n">1</span><div><b>Установите приложение</b><p>Рекомендуем бесплатный <b>Car Scanner ELM OBD2</b> в Google Play. Подойдут и Torque, InCarDoc, OBD Auto Doctor.</p></div></div>
+    <div class="step"><span class="n">1</span><div><b>Установите приложение</b><p>Рекомендуем бесплатный <b><a class="app" href="https://play.google.com/store/apps/details?id=com.ovz.carscanner" target="_blank" rel="noopener">Car Scanner ELM OBD2</a></b> в Google Play. Подойдут и <a class="app" href="https://play.google.com/store/apps/details?id=org.prowl.torque" target="_blank" rel="noopener">Torque</a>, <a class="app" href="https://play.google.com/store/search?c=apps&q=InCarDoc" target="_blank" rel="noopener">InCarDoc</a>, <a class="app" href="https://play.google.com/store/apps/details?id=com.obdautodoctor" target="_blank" rel="noopener">OBD Auto Doctor</a>.</p></div></div>
     <div class="step"><span class="n">2</span><div><b>Адаптер в разъём, зажигание ВКЛ</b><p>Красный светодиод горит — см. шаг 0.</p></div></div>
     <div class="step"><span class="n">3</span><div><b>Создайте пару по Bluetooth</b><p>Настройки → Bluetooth → устройство <b>OBD2 / OBDII</b> → «Подключить». Пароль <kbd>1234</kbd>, реже <kbd>0000</kbd>.</p></div></div>
     <div class="step"><span class="n">4</span><div><b>Настройте приложение</b><p>Car Scanner: Настройки → Адаптер → тип подключения <b>«Bluetooth»</b> → устройство OBD2. В профиле укажите марку и модель авто.</p></div></div>
@@ -133,7 +135,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
   <div class="note warn" style="margin-top:0"><b>Главное:</b> пару в настройках Bluetooth создавать <b>не нужно</b> — она мешает. iPhone работает с адаптером по каналу BLE: такие устройства подключаются только изнутри приложения и не видны в списке настроек телефона. Это нормально.</div>
   <div class="card" style="margin-top:14px">
     <div class="step"><span class="n">1</span><div><b>Удалите пару, если создавали</b><p>Настройки → Bluetooth → устройство OBD2 → «Забыть это устройство». Сам Bluetooth оставьте включённым.</p></div></div>
-    <div class="step"><span class="n">2</span><div><b>Установите приложение</b><p>Рекомендуем <b>Car Scanner ELM OBD2</b> в App Store. Подойдут и OBD Fusion, InCarDoc, InfoCar.</p></div></div>
+    <div class="step"><span class="n">2</span><div><b>Установите приложение</b><p>Рекомендуем <b><a class="app" href="https://apps.apple.com/ru/app/id1259933623" target="_blank" rel="noopener">Car Scanner ELM OBD2</a></b> в App Store. Подойдут и OBD Fusion, InCarDoc, InfoCar.</p></div></div>
     <div class="step"><span class="n">3</span><div><b>Адаптер в разъём, зажигание ВКЛ</b><p>У гибридов — режим Ready. Красный светодиод горит.</p></div></div>
     <div class="step"><span class="n">4</span><div><b>Подключитесь по BLE в приложении</b><p>Car Scanner: Настройки → Адаптер → тип подключения <b>«Bluetooth LE (4.0)»</b> → «Выбрать устройство» → нажмите на <b>OBD2 / OBDII</b>. Не нашёлся за 5–10 секунд — кнопка «Обновить».</p></div></div>
     <div class="step"><span class="n">5</span><div><b>Дождитесь соединения</b><p>Первое подключение — 10–20 секунд. В профиле укажите марку авто.</p></div></div>
@@ -145,7 +147,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
   <div class="sec-head"><span class="sec-num">Путь В</span><h2>ВАЗ и автомобили до ~2008 года</h2></div>
   <p style="color:var(--mut);margin-bottom:14px">ВАЗ с ЭБУ «Январь», Газель, УАЗ и многие иномарки до 2008 года общаются по протоколу K-line. Обычные OBD2-приложения его не видят — <b style="color:var(--ink)">это особенность автомобиля, а не брак адаптера</b>.</p>
   <div class="card">
-    <div class="step"><span class="n">1</span><div><b>Установите OpenDiag Mobile</b><p>Бесплатно в Google Play (Android). Приложение создано специально для российских авто.</p></div></div>
+    <div class="step"><span class="n">1</span><div><b>Установите <a class="app" href="https://play.google.com/store/search?c=apps&q=OpenDiag+Mobile" target="_blank" rel="noopener">OpenDiag Mobile</a></b><p>Бесплатно в Google Play (Android). Приложение создано специально для российских авто.</p></div></div>
     <div class="step"><span class="n">2</span><div><b>Пара по Bluetooth</b><p>Зажигание ВКЛ → Настройки → Bluetooth → OBD2 → пароль <kbd>1234</kbd>.</p></div></div>
     <div class="step"><span class="n">3</span><div><b>Выберите адаптер и свой ЭБУ</b><p>В OpenDiag: адаптер «ELM327 Bluetooth» → блок управления: Январь 5.1 / 7.2, Bosch M7.9.7 / M17.9.7, Ителма. Маркировка есть на корпусе ЭБУ, либо подберите по модели и году.</p></div></div>
   </div>
@@ -160,19 +162,19 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
     <div class="tablewrap">
       <table>
         <tr><th>Автомобиль</th><th>Приложение</th><th>Что даёт</th></tr>
-        <tr><td><b>Ford, Mazda</b></td><td>FORScan Lite</td><td>Почти все блоки: ABS, подушки, TPMS, сервисные процедуры</td></tr>
-        <tr><td><b>ВАЗ, Lada, ГАЗель, УАЗ</b></td><td>OpenDiag Mobile</td><td>ЭБУ «Январь», Bosch, Ителма — включая старые K-line</td></tr>
-        <tr><td><b>Toyota / Lexus гибриды</b></td><td>Dr. Prius, Hybrid Assistant</td><td>Состояние тяговой батареи по ячейкам, тест ВВБ</td></tr>
-        <tr><td><b>Nissan Leaf</b></td><td>LeafSpy Lite / Pro</td><td>Здоровье батареи (SOH), ячейки, зарядка</td></tr>
-        <tr><td><b>Nissan и Chery с вариатором Jatco</b></td><td>CVTz50</td><td>Температура и давление вариатора, счётчик износа, адаптации</td></tr>
-        <tr><td><b>Renault ZOE и электроверсии</b></td><td>CanZE</td><td>Батарея, зарядка, температуры</td></tr>
-        <tr><td><b>Kia, Hyundai, Honda, Mitsubishi, Nissan и др.</b></td><td>MotorData OBD (на русском)</td><td>Марочные плагины: ошибки ABS, SRS, АКПП с расшифровкой</td></tr>
-        <tr><td><b>Chevrolet Volt / Opel Ampera</b></td><td>Torque (Android) + PID-профиль Volt</td><td>Данные гибридной батареи</td></tr>
+        <tr><td><b>Ford, Mazda</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=FORScan+Lite" target="_blank" rel="noopener">FORScan Lite</a></td><td>Почти все блоки: ABS, подушки, TPMS, сервисные процедуры</td></tr>
+        <tr><td><b>ВАЗ, Lada, ГАЗель, УАЗ</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=OpenDiag+Mobile" target="_blank" rel="noopener">OpenDiag Mobile</a></td><td>ЭБУ «Январь», Bosch, Ителма — включая старые K-line</td></tr>
+        <tr><td><b>Toyota / Lexus гибриды</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=Dr.+Prius" target="_blank" rel="noopener">Dr. Prius</a>, <a class="app" href="https://play.google.com/store/search?c=apps&q=Hybrid+Assistant" target="_blank" rel="noopener">Hybrid Assistant</a></td><td>Состояние тяговой батареи по ячейкам, тест ВВБ</td></tr>
+        <tr><td><b>Nissan Leaf</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=LeafSpy" target="_blank" rel="noopener">LeafSpy Lite / Pro</a></td><td>Здоровье батареи (SOH), ячейки, зарядка</td></tr>
+        <tr><td><b>Nissan и Chery с вариатором Jatco</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=CVTz50" target="_blank" rel="noopener">CVTz50</a></td><td>Температура и давление вариатора, счётчик износа, адаптации</td></tr>
+        <tr><td><b>Renault ZOE и электроверсии</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=lu.fisch.canze" target="_blank" rel="noopener">CanZE</a></td><td>Батарея, зарядка, температуры</td></tr>
+        <tr><td><b>Kia, Hyundai, Honda, Mitsubishi, Nissan и др.</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=MotorData+OBD" target="_blank" rel="noopener">MotorData OBD</a> (на русском)</td><td>Марочные плагины: ошибки ABS, SRS, АКПП с расшифровкой</td></tr>
+        <tr><td><b>Chevrolet Volt / Opel Ampera</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=org.prowl.torque" target="_blank" rel="noopener">Torque</a> (Android) + PID-профиль Volt</td><td>Данные гибридной батареи</td></tr>
       </table>
     </div>
   </div>
   <div class="note warn"><b>Честно про исключения:</b> BimmerLink / BimmerCode (BMW), Carly и OBDeleven (VAG) с обычными ELM327 не работают — им нужны фирменные адаптеры из их списка. iOS-приложение Voltage для Chevrolet Volt тоже требует BLE-адаптеры из своего перечня. С нашим адаптером на этих авто доступна базовая диагностика двигателя через Car Scanner.</div>
-  <div class="note ok">Не нашли свою марку — напишите нам в чат, подскажем, какое приложение раскроет ваш автомобиль максимально.</div>
+  <div class="note ok">Проверенная страница загрузки приложений для сканера — <a class="app" href="https://dohome.doit.am/upgrade/obd/downLoad.php" target="_blank" rel="noopener">Car OBD: скачать для Android и iPhone</a> (кнопки App Store и Google Play). Не нашли свою марку — напишите нам в чат, подскажем, какое приложение раскроет ваш автомобиль максимально.</div>
 </section>
 
 <section id="fail">
