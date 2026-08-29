@@ -115,7 +115,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
     <div class="step"><span class="n">4</span><div><b>Посмотрите на адаптер</b><p>Должен загореться или замигать <b>красный светодиод</b>.</p></div></div>
   </div>
   <div class="note ok"><b>Светодиод горит</b> — адаптер исправен. Дальше: <a href="#android">Android</a>, <a href="#iphone">iPhone</a> или <a href="#vaz">ВАЗ / авто до 2008</a>.</div>
-  <div class="note bad"><b>Не горит</b> — проверьте предохранитель прикуривателя (разъём OBD2 часто питается от него) или попробуйте на другом авто. Не горит нигде — напишите нам в чат на Ozon, заменим устройство.</div>
+  <div class="note bad"><b>Не горит</b> — проверьте предохранитель прикуривателя (разъём OBD2 часто питается от него) или попробуйте на другом авто. Не горит нигде — напишите нам в чат на Ozon или Wildberries, заменим устройство.</div>
 </section>
 
 <section id="android">
@@ -151,6 +151,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
     <div class="step"><span class="n">2</span><div><b>Пара по Bluetooth</b><p>Зажигание ВКЛ → Настройки → Bluetooth → OBD2 → пароль <kbd>1234</kbd>.</p></div></div>
     <div class="step"><span class="n">3</span><div><b>Выберите адаптер и свой ЭБУ</b><p>В OpenDiag: адаптер «ELM327 Bluetooth» → блок управления: Январь 5.1 / 7.2, Bosch M7.9.7 / M17.9.7, Ителма. Маркировка есть на корпусе ЭБУ, либо подберите по модели и году.</p></div></div>
   </div>
+  <div class="note ok">На свежих Ладах (Веста, X-Ray, Шевроле Нива) связь с ЭБУ может установиться не с первой попытки — нажмите «Подключить» повторно 2–3 раза, это нормальное поведение.</div>
   <div class="note warn"><b>Иномарки до 2008:</b> в Car Scanner выберите точный профиль марки; если связи нет — Настройки → Адаптер → протокол <b>ISO 9141-2</b> или <b>KWP2000</b> вручную вместо «Авто». K-line поддерживает <b>двухплатная</b> версия сканера — если у вас старое авто, напишите нам, подскажем по вашей версии.</div>
 </section>
 
@@ -173,6 +174,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
       </table>
     </div>
   </div>
+  <div class="note ok"><b>Проверено покупателями</b> (из отзывов на такие же сканеры): УАЗ Патриот 2019, Mitsubishi Outlander III и Lancer IX, Nissan Murano Z50 (+CVTz50), Peugeot 206, Opel Zafira B 2008, Chevrolet Cruze 2013 — все через Car Scanner; Outlander также через MotorData. Нюанс бесплатной версии Car Scanner: не больше 2 графиков одновременно.</div>
   <div class="note warn"><b>Честно про исключения:</b> BimmerLink / BimmerCode (BMW), Carly и OBDeleven (VAG) с обычными ELM327 не работают — им нужны фирменные адаптеры из их списка. iOS-приложение Voltage для Chevrolet Volt тоже требует BLE-адаптеры из своего перечня. С нашим адаптером на этих авто доступна базовая диагностика двигателя через Car Scanner.</div>
   <div class="note ok">Проверенная страница загрузки приложений для сканера — <a class="app" href="https://dohome.doit.am/upgrade/obd/downLoad.php" target="_blank" rel="noopener">Car OBD: скачать для Android и iPhone</a> (кнопки App Store и Google Play). Не нашли свою марку — напишите нам в чат, подскажем, какое приложение раскроет ваш автомобиль максимально.</div>
 </section>
@@ -214,17 +216,18 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
         <tr><td>ВАЗ и иномарки до ~2008 г.</td><td class="yes">Да · K-line, двухплатная версия</td></tr>
         <tr><td>Гибриды (Prius, Volt и др.)</td><td class="yes">Да · через профиль в Car Scanner</td></tr>
         <tr><td>Электромобили</td><td class="half">Частично · зависит от модели</td></tr>
+        <tr><td>Ноутбук / ПК с Windows</td><td class="yes">Да · по Bluetooth: FORScan, ScanMaster ELM</td></tr>
         <tr><td>Грузовики с сетью 24В</td><td class="no">Нет</td></tr>
       </table>
     </div>
   </div>
-  <div class="note ok"><b>Сканер умеет:</b> читать и сбрасывать ошибки Check Engine, показывать датчики в реальном времени (обороты, температуры, давление, лямбда), VIN, стоп-кадр ошибки.</div>
+  <div class="note ok"><b>Сканер умеет:</b> читать и сбрасывать ошибки Check Engine (в бесплатной версии Car Scanner — без доплат), показывать датчики в реальном времени (обороты, температуры, давление, лямбда), VIN, стоп-кадр ошибки.</div>
   <div class="note bad"><b>Не умеет (честно):</b> прошивать блоки, корректировать одометр, читать ABS / подушки / АКПП / блок комфорта на большинстве авто — эти блоки закрыты производителями, нужно дилерское оборудование.</div>
 </section>
 
 <section id="help" class="help">
   <h2>Не получилось? Мы поможем</h2>
-  <p>Напишите нам в чат на Ozon — в карточке товара кнопка «Задать вопрос» — и укажите:</p>
+  <p>Напишите нам в чат на Ozon или Wildberries — в карточке товара кнопка «Задать вопрос» — и укажите:</p>
   <ol>
     <li>марку, модель и год автомобиля;</li>
     <li>телефон — Android или iPhone;</li>
