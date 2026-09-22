@@ -171,7 +171,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
         <tr><td><b>ВАЗ, Lada, ГАЗель, УАЗ</b></td><td><a class="app" href="https://www.rustore.ru/catalog/app/ru.spb.OpenDiag" target="_blank" rel="noopener">OpenDiag Mobile</a></td><td>ЭБУ «Январь», Bosch, Ителма — включая старые K-line</td></tr>
         <tr><td><b>Toyota / Lexus гибриды</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=Dr.+Prius" target="_blank" rel="noopener">Dr. Prius</a>, <a class="app" href="https://play.google.com/store/search?c=apps&q=Hybrid+Assistant" target="_blank" rel="noopener">Hybrid Assistant</a></td><td>Состояние тяговой батареи по ячейкам, тест ВВБ</td></tr>
         <tr><td><b>Nissan Leaf</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=LeafSpy" target="_blank" rel="noopener">LeafSpy Lite / Pro</a></td><td>Здоровье батареи (SOH), ячейки, зарядка</td></tr>
-        <tr><td><b>Праворульные Nissan начала 2000-х (Sunny B15, Primera, X-Trail T30)</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=com.ovz.carscanner" target="_blank" rel="noopener">Car Scanner</a> + протокол вручную</td><td>Настройки → Адаптер → Настройки подключения к ЭБУ → протокол «Nissan Consult II» вместо автоопределения; работает только с двухплатной версией (K-line). Подтверждено покупателем на Sunny B15 2003</td></tr>
+        <tr><td><b>Праворульные Nissan начала 2000-х (Sunny B15, Primera, X-Trail T30)</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=com.ovz.carscanner" target="_blank" rel="noopener">Car Scanner</a> + протокол вручную</td><td>Настройки → Адаптер → Настройки подключения к ЭБУ → протокол «Nissan Consult II» вместо автоопределения; работает только с двухплатной версией (K-line). Подтверждено покупателями на Sunny B15 2003 и Sunny FB15 1999</td></tr>
         <tr><td><b>Nissan и Chery с вариатором Jatco</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=CVTz50" target="_blank" rel="noopener">CVTz50</a></td><td>Температура и давление вариатора, счётчик износа, адаптации</td></tr>
         <tr><td><b>Renault ZOE и электроверсии</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=lu.fisch.canze" target="_blank" rel="noopener">CanZE</a></td><td>Батарея, зарядка, температуры</td></tr>
         <tr><td><b>Kia, Hyundai, Honda, Mitsubishi, Nissan и др.</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=MotorData+OBD" target="_blank" rel="noopener">MotorData OBD</a> (на русском)</td><td>Марочные плагины: ошибки ABS, SRS, АКПП с расшифровкой</td></tr>
@@ -187,6 +187,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
 
 <section id="fail">
   <div class="sec-head"><span class="sec-num">SOS</span><h2>Не подключается? Чек-лист</h2></div>
+  <div class="note warn"><b>Иномарка до ~2008 года и «не видит ЭБУ»? Задайте протокол вручную.</b> Такие авто (Toyota/Nissan/Opel/Renault и др.) работают по K-line, и автоопределение протокола часто его «проскакивает». В Car Scanner: Настройки → Адаптер OBDII ELM327 → Настройки подключения к ЭБУ → Протокол: попробуйте по очереди «ISO 9141-2 (5 baud init)», «ISO 14230-4 KWP (fast init)» и «ISO 14230-4 KWP (5 baud init)» — двигатель заведён, профиль подключения марочный или «Автоопределение». Один из трёх почти всегда срабатывает. Работает только на двухплатной версии (у неё есть K-line).</div>
   <div class="card">
     <ul class="checklist">
       <li><b>Зажигание выключено.</b> Включите зажигание или заведите двигатель.</li>
@@ -224,7 +225,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
         <tr><td>Гибриды (Prius, Volt и др.)</td><td class="yes">Да · через профиль в Car Scanner</td></tr>
         <tr><td>Электромобили</td><td class="half">Частично · зависит от модели</td></tr>
         <tr><td>Ноутбук / ПК с Windows</td><td class="yes">Да · по Bluetooth: FORScan, ScanMaster ELM</td></tr>
-        <tr><td>Праворульные Nissan до ~2004 г. (протокол Consult-II)</td><td class="half">Частично · только двухплатная, без гарантии; полный доступ — спец. адаптер Consult 14-pin</td></tr>
+        <tr><td>Праворульные Nissan до ~2004 г. (протокол Consult-II)</td><td class="half">Частично · только двухплатная, без гарантии (есть подтверждения покупателей: Sunny B15 2003, FB15 1999); полный доступ — спец. адаптер Consult 14-pin</td></tr>
         <tr><td>Праворульные Toyota до ~2003 г. (фирменный протокол)</td><td class="half">Частично · только двухплатная, без гарантии</td></tr>
         <tr><td>Дизели VW / Audi / Skoda до 2004 г. (KWP1281)</td><td class="no">Нет · нужен VAG-адаптер (Вася Диагност / VCDS)</td></tr>
         <tr><td>Daewoo Nexia до 2007 г. (разъём GM 12-pin)</td><td class="no">Нет · нестандартный разъём</td></tr>
