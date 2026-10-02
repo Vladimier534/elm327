@@ -98,6 +98,7 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
     <a href="#apps">Марочные приложения</a>
     <a href="#fail">Не подключается</a>
     <a href="#compat">Совместимость</a>
+    <a href="#honest">Границы честно</a>
     <a href="#help">Помощь</a>
   </nav>
   <a class="video" href="https://vkvideo.ru/video-32587581_456240029" target="_blank" rel="noopener">
@@ -172,6 +173,10 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
         <tr><td><b>Toyota / Lexus гибриды</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=Dr.+Prius" target="_blank" rel="noopener">Dr. Prius</a>, <a class="app" href="https://play.google.com/store/search?c=apps&q=Hybrid+Assistant" target="_blank" rel="noopener">Hybrid Assistant</a></td><td>Состояние тяговой батареи по ячейкам, тест ВВБ</td></tr>
         <tr><td><b>Nissan Leaf</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=LeafSpy" target="_blank" rel="noopener">LeafSpy Lite / Pro</a></td><td>Здоровье батареи (SOH), ячейки, зарядка</td></tr>
         <tr><td><b>Праворульные Nissan начала 2000-х (Sunny B15, Primera, X-Trail T30)</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=com.ovz.carscanner" target="_blank" rel="noopener">Car Scanner</a> + протокол вручную</td><td>Настройки → Адаптер → Настройки подключения к ЭБУ → протокол «Nissan Consult II» вместо автоопределения; работает только с двухплатной версией (K-line). Подтверждено покупателями на Sunny B15 2003 и Sunny FB15 1999</td></tr>
+        <tr><td><b>Suzuki (SX4, Grand Vitara, Ignis, Swift)</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=SZ+Viewer+A1" target="_blank" rel="noopener">SZ Viewer A1</a></td><td>Блоки SRS (подушки), ABS, АКПП с кодами ошибок — бесплатно. Подтверждено покупателем на Ignis 2007: найдена причина горящей лампы подушки</td></tr>
+        <tr><td><b>Renault (Megane, Logan, Duster, Kaptur)</b></td><td><a class="app" href="https://github.com/Sekrasoft/pyren" target="_blank" rel="noopener">PyRen</a>, DDT4All</td><td>Важно: у Renault память OBD2 может быть пустой, когда ошибки есть — они хранятся в фирменных блоках. PyRen читает их этим же адаптером. Подтверждено на Megane 2: все блоки, ошибка выхлопа удалена</td></tr>
+        <tr><td><b>Нива Travel 2021+ (блок Ителма М86)</b></td><td><a class="app" href="https://www.rustore.ru/catalog/app/ru.spb.OpenDiag" target="_blank" rel="noopener">OpenDiag Mobile</a> — только он</td><td>Car Scanner с блоком М86 не работает вообще (включая принудительный CAN) — это не брак сканера. В OpenDiag идентификация блока бесплатна, параметры и ошибки М86 — платный модуль ~150 ₽</td></tr>
+        <tr><td><b>ЗАЗ Сенс, Lanos (ЭБУ Микас 10.3)</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=com.ovz.carscanner" target="_blank" rel="noopener">Car Scanner</a></td><td>Читается по K-line через переходник со старого диагностического разъёма на OBD2; только двухплатная версия. Подтверждено покупателем на Сенс 1,3</td></tr>
         <tr><td><b>Nissan и Chery с вариатором Jatco</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=CVTz50" target="_blank" rel="noopener">CVTz50</a></td><td>Температура и давление вариатора, счётчик износа, адаптации</td></tr>
         <tr><td><b>Renault ZOE и электроверсии</b></td><td><a class="app" href="https://play.google.com/store/apps/details?id=lu.fisch.canze" target="_blank" rel="noopener">CanZE</a></td><td>Батарея, зарядка, температуры</td></tr>
         <tr><td><b>Kia, Hyundai, Honda, Mitsubishi, Nissan и др.</b></td><td><a class="app" href="https://play.google.com/store/search?c=apps&q=MotorData+OBD" target="_blank" rel="noopener">MotorData OBD</a> (на русском)</td><td>Марочные плагины: ошибки ABS, SRS, АКПП с расшифровкой</td></tr>
@@ -256,7 +261,22 @@ footer .sku{font-family:'JetBrains Mono',monospace;font-size:12.5px}
   <div class="note">
     <p>На форумах часто пишут: «настоящий v1.5 — только с двумя платами, одноплатные все с урезанной прошивкой 2.1». Это устарело. Количество плат и версия прошивки — независимые вещи: платы отвечают за поддержку линий связи (CAN и K-line), а прошивка — за набор команд ELM327.</p>
     <p>В наших сканерах прошивка <b>v1.5 в обеих версиях</b> — и в одноплатной, и в двухплатной. Проверить это может любой покупатель за минуту: установите любой OBD-терминал (например, «ELM Terminal»), подключитесь к адаптеру и отправьте команду <b>ATZ</b> — адаптер ответит строкой «ELM327 v1.5». Урезанные прошивки v2.1 (у которых не работают часть команд, например ATSH) встречаются у безымянных адаптеров — к нашим это отношения не имеет.</p>
+    <p><b>Откуда берётся «2.1» на экране.</b> Чаще всего за «версию адаптера» принимают версию ПРИЛОЖЕНИЯ Car Scanner (2.1.x на экране «О приложении»). Версию самого адаптера смотрите в приложении: раздел «Адаптер» → строка ELM327 — там будет v1.5. Полная проверка за минуту: бесплатное приложение <b>ELM327 Identifier</b> — у настоящего v1.5 все строки теста зелёные, без урезанных команд. Наши адаптеры этот тест проходят полностью.</p>
+    <p><b>Про надпись «possible fake ELM» в приложениях-проверялках.</b> Оригинальные чипы ELM327 выпускала только ELM Electronics (Канада), адаптеры на них стоили 5–7 тысяч рублей. Все доступные адаптеры на рынке работают на совместимых чипах (у нас — PIC18F25K80), и проверялки честно отмечают, что чип не канадский. Это предупреждение о происхождении чипа, а не о неисправности: важна полнота команд, которую показывает зелёный тест Identifier.</p>
     <p>Разница между нашими версиями — только в поддержке K-line: одноплатная работает по CAN (иномарки с ~2008 г., отечественные с 2011–2012 г.), двухплатная добавляет K-line для ВАЗ до 2012 г. и авто до 2008 г.</p>
+  </div>
+</section>
+
+<section id="honest" style="margin-top:28px">
+  <h2>Честно: где ELM327 не поможет</h2>
+  <div class="note">
+    <p><b>Honda 1998–2002 (Accord, Civic, CR-V, европейские).</b> Разъём возле правой ноги пассажира (3 или 5 контактов, подключается через переходник) — это сервисный разъём Honda, ELM327 с ним не работает. Ищите штатный 16-контактный OBD2 в ЦЕНТРАЛЬНОЙ консоли: под крышечкой возле пепельницы, под подлокотником или за заглушкой внизу — сканер вставляется в него напрямую. Подтверждено покупателем на Accord 2001: нашёл 16-pin — всё заработало.</p>
+    <p><b>Праворульные Nissan до ~2007 без 16-контактного разъёма</b> (Cube, March, часть Teana). Протокол Consult-I читается только специальным адаптером Consult — любой ELM327 бессилен. Если 16-контактный разъём есть — попробуйте в Car Scanner протокол «Nissan Consult II» вручную (двухплатная версия).</p>
+    <p><b>Свежие китайские авто 2023+ (Chery, Jetour, Exeed, частично 2024–2025 Haval и др.).</b> Производители закрывают блоки шлюзом Secure Gateway: стандартный OBD2 (двигатель) читается, глубокая диагностика блоков — нет.</p>
+    <p><b>Кастомизации Toyota/Lexus</b> (зумер ремня, автозакрытие дверей и пр.) — выполняются программой Techstream через кабельный адаптер Mini VCI; через Bluetooth-сканеры Techstream не работает. Наш сканер — для диагностики, не для кодирования Тойот.</p>
+    <p><b>Кодирование BMW</b> (Bimmercode и пр.) — требует адаптеры vLinker/OBDLink. Диагностику ошибок BMW наш сканер делает, кодирование — нет.</p>
+    <p><b>Android-магнитолы TEYES, HECHUANG и похожие:</b> Bluetooth этих головных устройств закрыт производителем для OBD-адаптеров (работает только на звук). Подключайте сканер к телефону, либо используйте Wi-Fi-версии адаптеров, если магнитола поддерживает.</p>
+    <p><b>Можно ли ездить со сканером в разъёме постоянно?</b> В движении — да, удобно следить за параметрами. Но на долгих стоянках (неделя и больше) адаптер лучше вынимать: разъём OBD2 запитан постоянно, и за долгий простой заряд аккумулятора может просесть.</p>
   </div>
 </section>
 
